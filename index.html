@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeLabs - HackMIT 2025</title>
+    <link rel="icon" type="image/svg+xml" href="./hack.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .disclaimer-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .disclaimer-banner a {
+            color: #ffd700;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .disclaimer-banner a:hover {
+            color: #ffed4e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .project-card {
+            flex: 3;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            border: 1px solid #e9ecef;
+        }
+
+        .sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            border: 1px solid #e9ecef;
+            height: fit-content;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .badge.hackmit {
+            background-color: #E1C500;
+        }
+
+        .badge.education {
+            background-color: #7A9CFF;
+        }
+
+        .badge.sponsor {
+            background-color: #6c757d;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 16px;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .location {
+            color: purple;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .sponsor-challenges {
+            margin-bottom: 32px;
+        }
+
+        .sponsor-challenges h4 {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .project-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #212529;
+        }
+
+        .section p {
+            color: #495057;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .links-section {
+            border-top: 1px solid #e9ecef;
+            padding-top: 24px;
+        }
+
+        .links-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .link-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .link-button.github {
+            background-color: rgba(92, 196, 255, 0.1);
+            color: #5cc4ff;
+            border-color: rgba(92, 196, 255, 0.2);
+        }
+
+        .link-button.github:hover {
+            background-color: rgba(92, 196, 255, 0.15);
+        }
+
+        .link-button.canva {
+            background-color: rgba(134, 142, 150, 0.1);
+            color: #868e96;
+            border-color: rgba(134, 142, 150, 0.2);
+        }
+
+        .link-button.canva:hover {
+            background-color: rgba(134, 142, 150, 0.15);
+        }
+
+        .link-button.youtube {
+            background-color: rgba(250, 82, 82, 0.1);
+            color: #fa5252;
+            border-color: rgba(250, 82, 82, 0.2);
+        }
+
+        .link-button.youtube:hover {
+            background-color: rgba(250, 82, 82, 0.15);
+        }
+
+        .creators-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .creator {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .creator:last-child {
+            border-bottom: none;
+        }
+
+        .creator-name {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .creator-email {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .project-links h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            margin-top: 24px;
+        }
+
+        .project-link-item {
+            margin-bottom: 16px;
+        }
+
+        .project-link-item h4 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .project-link-item p {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        .copy-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .copy-button:hover {
+            background-color: rgba(40, 167, 69, 0.15);
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .project-card, .sidebar {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer-banner">
+        This is a copy of the VibeLabs Project Showcase, preserved for link and site stability. See the original on the MIT website at <a href="https://plume.hackmit.org/project/zqiqz-lzvtc-zfoue-ggamu" target="_blank">here</a>.
+    </div>
+    <div class="container">
+        <div class="main-content">
+            <div class="project-card">
+                <div class="header">
+                    <div class="badges">
+                        <span class="badge hackmit">HackMIT 2025</span>
+                        <span class="badge education">Education</span>
+                    </div>
+                </div>
+
+                <h1 class="project-title">VibeLabs</h1>
+                
+                <p class="project-description">
+                    Vibe Labs uses your AI Copilot prompting history (e.g., Cursor, Claude Code, Windsurf) to generate personalized coding exercises tailored to your style and habits. It teaches you to solve your most common, easy-to-solve prompts, saving the time you would otherwise spend waiting for each repetitive prompt, boosting the efficiency of your vibe coding and improving your programming skills.
+                </p>
+
+                <p class="location">Location: Table 60</p>
+
+                <div class="sponsor-challenges">
+                    <h4>Sponsor Challenges:</h4>
+                    <div class="badges">
+                        <span class="badge sponsor">Warp Dev: Best Developer Tool</span>
+                        <span class="badge sponsor">Windsurf Challenge</span>
+                        <span class="badge sponsor">Anthropic: Best Use Of Claude</span>
+                        <span class="badge sponsor">Infosys: Carbon-Conscious Intelligence – Building Smarter AI with a Smaller Footprint</span>
+                    </div>
+                </div>
+
+                <img src="./project-pr-ogCQf9PLQvbFGjW.jpg" alt="VibeLabs Project Screenshot" class="project-image">
+
+                <div class="section">
+                    <h3>Inspiration</h3>
+                    <p>Vibe coding empowers developers to move faster, unleash creativity, and focus on ideas rather than syntax. But with this convenience comes a tradeoff: many developers, especially beginners, end up skipping over core fundamentals. There is a pattern hidden in plain sight here: a developer's own AI chat history. The same "how do I center a div" conservation repeated ten times a day reveals a programmer's knowledge gaps. Our project transforms those repeated prompts into personalized mini-lessons tailored to each coder. This way, vibe coders not only overcome immediate challenges and ship faster today, but also build the foundational skills that will 10x their productivity in the future.</p>
+                </div>
+
+                <div class="section">
+                    <h3>What it does</h3>
+                    <p>VibeLabs is an intelligent education platform that logs and analyzes the prompts developers type into AI coding engines such as Cursor and Windsurf. It estimates a developer's programming experience level and automatically generates personalized lesson plans to strengthen weak areas.
+
+Main features:
+(1) Real-time Prompt Tracking and Analysis: VibeLabs captures coding-related prompts. Using natural language analysis, it identifies skill level with Claude and pinpoints the specific concepts you repeatedly struggle with.
+(2) Personalized Lesson Generation: When a weak spot is identified, our platform automatically builds a custom lesson plan with coding exercises tailored to you. Your learning journey constantly adapts as your skills improve.
+(3) Interactive Practice and Feedback: You can solve these tailored exercises directly on the platform and receive instant, AI-driven feedback on your code, creating a powerful loop of practice and reinforcement. 
+(4) Progress Dashboard and Leaderboard: Track your growth with visual insights on your personal dashboard. A gamified leaderboard adds a fun, competitive edge, motivating you to continuously level up your skills.</p>
+                </div>
+
+                <div class="section">
+                    <h3>How we built it</h3>
+                    <p>Frontend: The UI is built as a React/Next.js web app with Tailwind CSS. 
+Backend: We store user information in a Supabase PostgreSQL database which communicates between our frontend and keylogger. 
+Data collection: We use a python based keylogger to get the Claude Code Prompts. As the user makes new prompt queries, the new prompts are synced to our database, and we parse through them to look for areas of repeated inefficiencies. 
+AI-processing: VibeLabs uses Claude API to: 1) analyze prompt histories and find recurring knowledge gaps, 2) generate personalized coding exercises to address those gaps, and 3) provide instant, AI-powered feedback on user-submitted solutions.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Individual Contributions</h3>
+                    <p>Sabrina: Developed a terminal-based Claude wrapper and backend server pipeline, integrating a Node server and frontend with Supabase, and producing structured outputs from Claude for frontend integration.
+Eric: Implemented PostgreSQL with Supabase and integrated the Claude API to capture Claude prompts, update Supabase, and populate tables with coding improvement areas, exercise prompts, as well as perform automated checks of user solutions.
+Nicole: designed and built the UI in React with the help of Windsurf, prioritizing aesthetic and responsive design. Developed exercise code editor with integrated Claude AI, user dashboard, leaderboard. Filmed and edited demo video.
+Bridget: debated and designed with Windsurf, built a Node backend, Supabase integration, Claude exercise generation, created an accompanying video script, and designed presentation slides for project demo.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Challenges we ran into</h3>
+                    <p>Data Acquisition: Overcoming the lack of a direct API to get a user's copilot prompts by developing a custom, secure keylogger to capture user data.
+Latency Management: Ensuring a zero-wait user experience by pre-processing copilot prompts and asynchronously generating exercises in the background, avoiding a bottleneck of performing all the API calls when the user visits our web app.
+AI Logic: Engineering precise prompts for the Claude API to accurately summarize user weaknesses to generate relevant, high-quality coding exercises, and evaluate user solutions to coding exercises.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Accomplishments that we're proud of</h3>
+                    <p>We're proud that in such a short time (24 hours), we built a system that takes a coder's natural prompts and automatically generates tailored lessons from them. It was very exciting seeing how well our prototype could intelligently recognise repeated requests patterns (i.e. like 'center a div') and turn them into bite-sized tutorials.
+
+We're proud that our project supports the vision of making vibe coding not only fast but also more efficient. Our prototype shows how we can help coders get answers in the moment while also building the confidence to solve challenges on their own. This reduces repeated prompts, streamlines the workflow, and demonstrates that vibe coding can be both a powerful tool for speed and a pathway for long-term growth.</p>
+                </div>
+
+                <div class="section">
+                    <h3>What we learned</h3>
+                    <p>We learned a lot from the technical side of this project. For example, we figured out how to pre-process database updates and API queries to reduce latency and lag, which made our system run much smoother. Beyond the technical work, we also learned that copilot prompts aren't just instructions, they're signals that reveal where coders need support. Generating these personalized lessons directly from the vibe coding flow can turn those signals for support into opportunities for long-term growth and increasing their development efficiency.</p>
+                </div>
+
+                <div class="section">
+                    <h3>What's next for our project</h3>
+                    <p>(1) VSCode Extension: Build a native extension to integrate directly with Copilot, Claude Code, and Cursor. It'd be more convenient to access directly in the IDE rather than having to go to a separate web app. Plus, with a built-in VSCode extension, we could get the user's prompt interactions without having to use a keylogger.
+(2) Enhance Coding Exercises: Adding difficulty levels and progressive hints if a user is stuck to boost learning.
+(3) Gamification: Add badges, points, leaderboards, streaks, or achievement levels to motivate learners, encourage consistent practice, and make exercises more engaging and fun.</p>
+                </div>
+
+                <div class="links-section">
+                    <h3>Links</h3>
+                    <div class="link-buttons">
+                        <a href="https://github.com/nc0le/HackMIT" target="_blank" class="link-button github">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+                            </svg>
+                            Code Link
+                        </a>
+                        <a href="https://www.canva.com/design/DAGy54022Gs/Y4mfkiGd5x7-0PxrMspbrQ/edit?utm_content=DAGy54022Gs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="link-button canva">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 15l6 -6"></path>
+                                <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                                <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                            </svg>
+                            Presentation
+                        </a>
+                        <a href="https://photos.app.goo.gl/H6ZgzQH2DWwNxye79" target="_blank" class="link-button canva">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 15l6 -6"></path>
+                                <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                                <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                            </svg>
+                            Photos
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=UnClx6522s0" target="_blank" class="link-button youtube">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 8a4 4 0 0 1 4 -4h12a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-12a4 4 0 0 1 -4 -4v-8z"></path>
+                                <path d="M10 9l5 3l-5 3z"></path>
+                            </svg>
+                            Video Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="creators-section">
+                    <h3>Project Creators</h3>
+                    <div class="creator">
+                        <div class="creator-name">Sabrina Yen-Ko</div>
+                    </div>
+                    <div class="creator">
+                        <div class="creator-name">Eric Sun</div>
+                    </div>
+                    <div class="creator">
+                        <div class="creator-name">Nicole Cui</div>
+                    </div>
+                    <div class="creator">
+                        <div class="creator-name">Bridget Liu</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Create a temporary notification
+                const notification = document.createElement('div');
+                notification.textContent = 'Copied to clipboard!';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #28a745;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 6px;
+                    font-weight: 500;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
